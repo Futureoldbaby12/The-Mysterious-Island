@@ -1,0 +1,121 @@
+
+<html>
+<head>
+<title>The Mysterious Island</title>
+</head>
+<body>
+<pre>
+
+</pre>
+<script>
+var game = {
+var game = {
+intro: "You wake up on a sandy beach, surrounded debris from a shipwreck. You are disoriented and don't know where you are. You look around and a dense jungle to the north, a rocky shore to the east, and a small village to the west. What would you like to do?",
+
+currentLocation: "beach",
+
+beach: {
+description: "You are on a sandy beach. You see debris from a shipwreck, a dense jungle to the north, a rocky shore to the east, and a small village to the west.",
+actions: {
+"go north": "jungle",
+"go east": "rocky shore",
+"go west": "village",
+"examine debris": "You see that most of it is from the ship you were on, but you notice something peculiar. A small wooden box with a strange symbol on it, it looks like it's not damaged.",
+"pick up box": "box",
+"leave debris": "beach"
+}
+},
+
+box: {
+description: "The box is locked. You notice a small keyhole on the side of the box. You don't have a key, but you remember seeing a key among the debris.",
+actions: {
+"try to open the box": "box",
+"leave the box": "beach",
+"pick up key": "key",
+"go back to the debris": "beach"
+}
+},
+
+key: {
+description: "You have a key that has the same symbol as the box.",
+actions: {
+"use key": "map",
+"leave key": "box"
+}
+},
+
+map: {
+description: "The map is old and weathered, but it seems to show the layout of the island. It appears that there is a village to the west, a jungle to the north, and a mountain to the east. There is also a mark on the map that looks like an X, it's located in the jungle.",
+actions: {
+"go north": "jungle",
+"go east": "mountain",
+"go west": "village",
+"examine X": "treasure"
+}
+},
+
+treasure: {
+description: "You found the treasure!",
+actions: {
+"go back to the village": "village"
+}
+},
+
+village: {
+description: "You are in the village. You can ask for help or leave the village.",
+actions: {
+"ask for help": "village\_help",
+"decline help": "beach",
+"go to the X": "treasure"
+}
+},
+
+village\_help: {
+description: "The villagers give you a spear and some food. They also tell you that the treasure is located in a cave and you need to be careful as the wild animals are very protective of their territory.",
+actions: {
+"go to the X": "treasure"
+}
+},
+
+jungle: {
+description: "You are in the jungle. You can hear the sound of wild animals.",
+actions: {
+"fight the animals": "treasure",
+"try to distract the animals": "treasure",
+"leave the chest": "beach"
+}
+},
+
+rocky shore: {
+description: "You are on a rocky shore. You can see the sea and the island's coast.",
+actions: {
+"go back to the beach": "beach"
+}
+},
+
+mountain: {
+description: "You are on a mountain. You can see the island's landscape.",
+actions: {
+"go back to the beach": "beach"
+}
+}
+},
+
+currentState: function() {
+return this[this.currentLocation].description;
+},
+
+processAction: function(action) {
+var nextLocation = this[this.currentLocation].actions[action];
+if (nextLocation) {
+this.currentLocation = nextLocation;
+} else {
+console.log("Invalid action.");
+}
+}
+function startGame() {
+document.getElementsByTagName("pre")[0].innerText = game.intro;
+}
+</script>
+</body>
+</html>
